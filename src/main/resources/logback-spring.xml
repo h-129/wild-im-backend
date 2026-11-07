@@ -1,0 +1,50 @@
+<configuration>
+    <springProperty name="logFile" source="log.file"/>
+    <springProperty name="rootLevel" source="log.level.root"/>
+    <springProperty name="myLevel" source="log.level.me"/>
+    <springProperty name="sqlLevel" source="log.level.sql"/>
+    <springProperty name="maxFileSize" source="log.maxsize"/>
+
+    <!-- 输出到控制台 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d [%thread] %-5level %logger{50} -[%file:%line]- %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 输出到文件 -->
+    <appender name="sysLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <encoder>
+            <pattern>%d [%thread] %-5level -[%file:%line]- %msg%n</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${user.dir}/${logFile}/%d{yyyyMM,aux}/%d{yyyyMMdd}/app_%i.log</fileNamePattern>
+            <maxFileSize>${maxFileSize}</maxFileSize>
+        </rollingPolicy>
+    </appender>
+
+    <!--
+      1. 单独控制 Mapper 接口的日志级别以打印 SQL
+      假设你的 Mapper 接口放在 cn.okcl.im.mapper 包下（如果叫别的名字，请对应修改最后一段）
+    -->
+    <logger name="cn.okcl.im.mapper" level="${sqlLevel}"/>
+
+    <!--
+      2. 拦截并处理整个 cn.okcl.im 包下你编写的业务代码日志
+      additivity="false" 确保日志被自己消费后，不再交给下方的 root，避免控制台打印双份
+    -->
+    <logger name="cn.okcl.im" level="${myLevel}" additivity="false">
+        <!-- 开发阶段暂时关闭文件输出 -->
+        <!-- <appender-ref ref="sysLog" /> -->
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <!--
+      3. 全局 Root 策略（兜底：主要用于控制 SpringBoot、Tomcat、Redis 等第三方框架的日志）
+    -->
+    <root level="${rootLevel}">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>
