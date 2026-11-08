@@ -72,4 +72,8 @@ public class Result<T> implements Serializable {
     public static <T> Result<T> error(ResultCodeEnum resultCodeEnum, String msg) {
         return build(resultCodeEnum.getCode(), msg, null);
     }
+
+    public static <T> Result<T> error(Integer code, String msg) {
+        return build(code, msg, null);
+    }
 }
