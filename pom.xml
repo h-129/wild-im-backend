@@ -68,6 +68,12 @@
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-crypto</artifactId>
         </dependency>
+        <!--        新增校验注解依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-validation</artifactId>
+            <version>4.0.6</version>
+        </dependency>
     </dependencies>
 
     <build>
