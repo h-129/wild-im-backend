@@ -50,7 +50,7 @@ public class ImGroup implements Serializable {
     /**
      * 逻辑删除标识
      */
-    @TableLogic(value = "is_deleted", delval = "1")
+    @TableLogic(value = "0", delval = "1")
     private Long isDeleted;
     /**
      * 创建时间

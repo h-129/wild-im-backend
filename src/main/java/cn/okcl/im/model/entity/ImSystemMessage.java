@@ -54,7 +54,7 @@ public class ImSystemMessage implements Serializable {
     /**
      * 逻辑删除标识 (0:未删除, 大于0:已删除，值为id)
      */
-    @TableLogic(value = "is_deleted", delval = "1")
+    @TableLogic(value = "0", delval = "1")
     private Long isDeleted;
     /**
      * 创建时间
