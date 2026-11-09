@@ -1,7 +1,9 @@
 package cn.okcl.im.controller;
 
 import cn.okcl.im.common.Result;
+import cn.okcl.im.model.dto.UserLoginDto;
 import cn.okcl.im.model.dto.UserRegisterDto;
+import cn.okcl.im.model.vo.LoginVo;
 import cn.okcl.im.service.ImUserService;
 import jakarta.annotation.Resource;
 import jakarta.validation.Valid;
@@ -30,7 +32,20 @@ public class AuthController {
     @PostMapping("/register")
     public Result<Boolean> register(@Valid @RequestBody UserRegisterDto userRegisterDto) {
         log.info("用户注册: {}", userRegisterDto);
-        imUserService.register(userRegisterDto);
-        return Result.success(true);
+        boolean registered = imUserService.register(userRegisterDto);
+        return Result.success(registered);
+    }
+
+    /**
+     * 用户登录
+     *
+     * @param userLoginDto 用户登录dto
+     * @return 登录结果
+     */
+    @PostMapping("/login")
+    public Result<LoginVo> login(@Valid @RequestBody UserLoginDto userLoginDto) {
+        log.info("用户登录: {}", userLoginDto);
+        LoginVo loginVo = imUserService.login(userLoginDto);
+        return Result.success(loginVo);
     }
 }

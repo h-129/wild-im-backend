@@ -41,3 +41,11 @@ log:
     root: INFO                     # 全局基础日志级别（控制 Spring、Tomcat 等）
     me: DEBUG                      # 你的业务代码 (cn.okcl.im) 的日志级别 (开发时可改 DEBUG)
     sql: DEBUG                     # Mapper 接口的日志级别，必须是 DEBUG 才能打印 SQL
+
+jwt:
+  # 密钥（必须足够长，最少 32 字节/字符，保障 HMAC256 安全）
+  secret: YourSuperSecretKeyWithAtLeast32BytesLengthForSecurity
+  # 签发人
+  issuer: wild-im
+  # 默认过期时间（毫秒，比如 2 小时 = 7200000）
+  expire: 7200000

@@ -1,8 +1,10 @@
 package cn.okcl.im.service;
 
 
+import cn.okcl.im.model.dto.UserLoginDto;
 import cn.okcl.im.model.dto.UserRegisterDto;
 import cn.okcl.im.model.entity.ImUser;
+import cn.okcl.im.model.vo.LoginVo;
 import com.baomidou.mybatisplus.spring.service.IService;
 
 /**
@@ -18,4 +20,12 @@ public interface ImUserService extends IService<ImUser> {
      * @return 是否注册成功
      */
     boolean register(UserRegisterDto userRegisterDto);
+
+    /**
+     * 用户登录
+     *
+     * @param userLoginDto 用户登录DTO
+     * @return 登录结果
+     */
+    LoginVo login(UserLoginDto userLoginDto);
 }

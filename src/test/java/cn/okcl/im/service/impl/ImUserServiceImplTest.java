@@ -13,7 +13,7 @@ class ImUserServiceImplTest {
     @Test
     void register() {
         //重置密码
-        String password = "a12345679..";
+        String password = "a12345678..";
         String encodedPassword = passwordEncoder.encode(password);
         System.out.println(encodedPassword);
     }
