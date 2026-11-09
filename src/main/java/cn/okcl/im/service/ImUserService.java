@@ -1,6 +1,7 @@
 package cn.okcl.im.service;
 
 
+import cn.okcl.im.model.dto.UserRegisterDto;
 import cn.okcl.im.model.entity.ImUser;
 import com.baomidou.mybatisplus.spring.service.IService;
 
@@ -10,5 +11,11 @@ import com.baomidou.mybatisplus.spring.service.IService;
  * @createDate 2026-11-09 00:02:09
  */
 public interface ImUserService extends IService<ImUser> {
-
+    /**
+     * 注册用户
+     *
+     * @param userRegisterDto 注册用户DTO
+     * @return 是否注册成功
+     */
+    boolean register(UserRegisterDto userRegisterDto);
 }
