@@ -3,6 +3,7 @@ package cn.okcl.im.handler;
 import cn.okcl.im.common.Result;
 import cn.okcl.im.enums.ResultCodeEnum;
 import cn.okcl.im.exception.BusinessException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
@@ -36,7 +37,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(value = BusinessException.class)
     public Result<?> businessExceptionHandler(BusinessException e) {
-        log.error("业务异常", e);
+        log.info("业务异常拦截 [Code: {}, Msg: {}]", e.getCode(), e.getMessage());
         return Result.error(e.getCode(), e.getMessage());
     }
 
@@ -50,7 +51,16 @@ public class GlobalExceptionHandler {
         // 获取第一个错误字段的提示信息message
         FieldError fieldError = bindingResult.getFieldError();
         String errorMessage = fieldError != null ? fieldError.getDefaultMessage() : ResultCodeEnum.PARAM_ERROR.getMsg();
-        log.error("参数校验异常: {}", errorMessage);
+        log.info("参数校验异常: {}", errorMessage);
         return Result.error(ResultCodeEnum.PARAM_ERROR, errorMessage);
+    }
+
+    /**
+     * 捕获 JWT Token 过期异常
+     */
+    @ExceptionHandler(TokenExpiredException.class)
+    public Result<Void> handleTokenExpiredException(TokenExpiredException e) {
+        log.warn("Token已过期: {}", e.getMessage());
+        return Result.error(ResultCodeEnum.UNAUTHORIZED);
     }
 }
