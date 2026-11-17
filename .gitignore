@@ -34,8 +34,8 @@ build/
 
 ### custom ###
 # 忽略 uploads 目录下的所有文件和子目录
-/uploads/**/*
+/upload/**/*
 
 # 允许 Git 追踪 uploads 目录本身以及里面的 .gitignore 文件
-!/uploads/
-!/uploads/.gitignore
+!/upload/
+!/upload/.gitignore
