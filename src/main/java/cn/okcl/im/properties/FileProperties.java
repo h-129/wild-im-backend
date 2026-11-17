@@ -12,8 +12,8 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "files")
 public class FileProperties {
     private String uploadPath; // 基础上传路径
-    private String appUploadPath; // 私密上传路径
-    private String appUploadApiPrefix; // 私密上传接口访问路径
-    private String commonUploadPath; // 公共上传路径
-    private String commonUploadApiPrefix; // 公共上传接口访问路径
+    private String privatePath; // 私密上传路径
+    private String privateApiPrefix; // 私密上传接口访问路径
+    private String commonPath; // 公共上传路径
+    private String commonApiPrefix; // 公共上传接口访问路径
 }

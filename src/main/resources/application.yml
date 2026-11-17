@@ -54,7 +54,9 @@ jwt:
 #文件上传配置
 files:
   upload-path: /uploads # 基础上传路径
-  app-upload-path: ${files.upload-path}/app # 私密上传路径
-  app-upload-api-prefix: ${server.servlet.context-path}${files.upload-path}/app # 私密上传接口访问路径
-  common-upload-path: ${files.upload-path}/common # 公共上传路径
-  common-upload-api-prefix: ${server.servlet.context-path}${files.upload-path}/common # 公共上传接口访问路径
+  # 私密文件相关
+  private-path: ${files.upload-path}/private
+  private-api-prefix: ${server.servlet.context-path}${files.upload-path}/private
+  # 公共文件相关
+  common-path: ${files.upload-path}/common
+  common-api-prefix: ${server.servlet.context-path}${files.upload-path}/common
