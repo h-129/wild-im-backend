@@ -2,7 +2,9 @@ server:
   port: 8191
   servlet:
     context-path: /api #上下文路径
-
+  multipart:
+    max-file-size: 10MB #最大文件大小
+    max-request-size: 10MB #最大请求大小
 spring:
   application:
     name: wild-im-backend
@@ -49,3 +51,10 @@ jwt:
   issuer: wild-im
   # 默认过期时间（毫秒，比如 2 小时 = 7200000）
   expire: 7200000
+#文件上传配置
+files:
+  upload-path: /uploads # 基础上传路径
+  app-upload-path: ${files.upload-path}/app # 私密上传路径
+  app-upload-api-prefix: ${server.servlet.context-path}${files.upload-path}/app # 私密上传接口访问路径
+  common-upload-path: ${files.upload-path}/common # 公共上传路径
+  common-upload-api-prefix: ${server.servlet.context-path}${files.upload-path}/common # 公共上传接口访问路径
