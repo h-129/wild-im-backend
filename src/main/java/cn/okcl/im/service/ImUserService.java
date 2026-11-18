@@ -5,6 +5,7 @@ import cn.okcl.im.model.dto.UserLoginDto;
 import cn.okcl.im.model.dto.UserRegisterDto;
 import cn.okcl.im.model.entity.ImUser;
 import cn.okcl.im.model.vo.LoginVo;
+import cn.okcl.im.model.vo.UserInfoVo;
 import com.baomidou.mybatisplus.spring.service.IService;
 
 /**
@@ -28,4 +29,12 @@ public interface ImUserService extends IService<ImUser> {
      * @return 登录结果
      */
     LoginVo login(UserLoginDto userLoginDto);
+
+    /**
+     * 获取用户信息
+     *
+     * @param userId 用户 ID
+     * @return 用户信息VO
+     */
+    UserInfoVo getUserInfo(Long userId);
 }

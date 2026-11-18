@@ -8,6 +8,7 @@ import cn.okcl.im.model.dto.UserLoginDto;
 import cn.okcl.im.model.dto.UserRegisterDto;
 import cn.okcl.im.model.entity.ImUser;
 import cn.okcl.im.model.vo.LoginVo;
+import cn.okcl.im.model.vo.UserInfoVo;
 import cn.okcl.im.service.ImUserService;
 import cn.okcl.im.utils.JwtUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -94,6 +95,28 @@ public class ImUserServiceImpl extends ServiceImpl<ImUserMapper, ImUser> impleme
         String accessToken = jwtUtil.generateToken(claims);
         loginVo.setAccessToken(accessToken);
         return loginVo;
+    }
+
+    /**
+     * 获取用户信息
+     *
+     * @param userId 用户 ID
+     * @return 用户信息VO
+     */
+    @Override
+    public UserInfoVo getUserInfo(Long userId) {
+        if (ObjectUtils.isEmpty(userId)) {
+            throw new BusinessException(ResultCodeEnum.PARAM_ERROR, "用户ID不能为空");
+        }
+        LambdaQueryWrapper<ImUser> isExitUser = new LambdaQueryWrapper<ImUser>()
+                .eq(ImUser::getId, userId);
+        ImUser imUser = imUserMapper.selectOne(isExitUser);
+        if (ObjectUtils.isEmpty(imUser)) {
+            throw new BusinessException(ResultCodeEnum.USER_NOT_EXIST);
+        }
+        UserInfoVo userInfoVo = new UserInfoVo();
+        BeanUtils.copyProperties(imUser, userInfoVo);
+        return userInfoVo;
     }
 }
 
